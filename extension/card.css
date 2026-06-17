@@ -1,0 +1,39 @@
+/* PolyArc overlay panel — fixed bottom-right, dark terminal aesthetic */
+#pt-panel {
+  position: fixed; bottom: 18px; right: 18px; width: 340px; max-height: 80vh;
+  overflow-y: auto; z-index: 2147483647;
+  background: #141923; color: #d7dce3; border: 1px solid #2a3340; border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.5);
+  font: 13px/1.45 -apple-system, "Segoe UI", Roboto, sans-serif; padding: 14px 16px;
+}
+#pt-panel .pt-top { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 10px; }
+#pt-panel .pt-grade { flex: none; width: 42px; height: 42px; border-radius: 10px;
+  font-size: 25px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+  color: #0c0f14; }
+#pt-panel .pt-g-F { background: #ff6b5a; }
+#pt-panel .pt-g-D { background: #e6b14e; }
+#pt-panel .pt-g-C { background: #5fd39a; }
+#pt-panel .pt-g-na { background: #36414f; color: #aab6c4; }
+#pt-panel .pt-brandwrap { flex: 1; min-width: 0; }
+#pt-panel .pt-brand { font-size: 13px; font-weight: 700; color: #fff; }
+#pt-panel .pt-headline { font-size: 12.5px; color: #cdd6e0; margin-top: 3px; }
+#pt-panel .pt-factor { font-size: 12px; color: #aeb9c6; margin: 6px 0; }
+#pt-panel .pt-factor b { color: #e6edf3; }
+#pt-panel .pt-x { float: right; cursor: pointer; color: #7e8a99; font-size: 18px; line-height: 1; margin-left: 8px; }
+#pt-panel .pt-sec { font-size: 11px; color: #7e8a99; text-transform: uppercase; letter-spacing: .8px;
+  margin: 14px 0 6px; border-bottom: 1px solid #232c38; padding-bottom: 4px; }
+#pt-panel .pt-verdict { font-size: 13px; font-weight: 600; padding: 8px 10px; border-radius: 8px; margin: 4px 0; }
+#pt-panel .pt-flag { background: #2a1414; color: #ff8b7a; border: 1px solid #5a2424; }
+#pt-panel .pt-clean { background: #10261a; color: #7fcfa5; border: 1px solid #1f5138; }
+#pt-panel .pt-fair { background: #1a1f2b; color: #aab6c4; border: 1px solid #2a3340; }
+#pt-panel .pt-flag-row { font-size: 12.5px; margin: 5px 0; color: #cdd6e0; }
+#pt-panel .pt-row { display: flex; justify-content: space-between; font-size: 12.5px; margin: 3px 0; color: #aeb9c6; }
+#pt-panel .pt-fine { color: #8a96a4; font-size: 11.5px; margin-top: 8px; }
+#pt-panel .pt-slug { color: #5f6b7a; font-size: 10.5px; font-family: ui-monospace, Menlo, monospace;
+  background: #0e1218; border: 1px solid #232c38; border-radius: 6px; padding: 4px 7px; margin-bottom: 8px; word-break: break-all; }
+#pt-panel .pt-slug b { color: #8aa0b3; }
+#pt-panel .pt-link { color: #7fcfe0; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+#pt-panel .pt-link:hover { color: #aee6f2; }
+#pt-panel .pt-link b { color: inherit; }
+#pt-panel .pt-learn { font-size: 11px; color: #6b7785; margin-top: 12px; }
+#pt-panel .pt-foot { color: #6b7785; font-size: 11px; border-top: 1px solid #232c38; padding-top: 9px; margin-top: 8px; }

@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.db
+polyarc_events.db
+polyarc_waitlist.db
+.env
+.DS_Store
+node_modules/
