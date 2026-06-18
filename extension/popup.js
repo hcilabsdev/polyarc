@@ -1,4 +1,4 @@
-const DEFAULT_API = "https://polyarc.ai";
+const DEFAULT_API = "https://www.polyarc.ai";
 const api = document.getElementById("api");
 const ok = document.getElementById("ok");
 chrome.storage.sync.get({ apiBase: DEFAULT_API }, (d) => { api.value = d.apiBase; });

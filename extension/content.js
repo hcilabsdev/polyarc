@@ -7,7 +7,7 @@
 // slug. These selectors may need tuning against the live site — the panel will say
 // "not analyzed" rather than guess if it can't resolve or we lack coverage.
 
-const DEFAULT_API = "https://polyarc.ai";
+const DEFAULT_API = "https://www.polyarc.ai";
 let lastKey = null;
 let curSlug = null; // shown on the card so you can see what page it detected
 let panelMin = false; // collapsed (minimized) state, persists across re-renders
