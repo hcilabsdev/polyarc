@@ -106,26 +106,25 @@ function flagLink(flagText) {
   return hit ? lnk(`<b>${esc(flagText)}</b>`, hit[1]) : `<b>${esc(flagText)}</b>`;
 }
 
-// Collapse the response into ONE letter grade + a few terse factors.
-// The integrity gate sets the grade (F=trap risk, D=caution, C=clean). A/B are
-// deliberately NOT awarded: the value/mispricing axis did not validate out-of-sample,
-// so we never render a "buy" edge (and never the low-price EV number, which is a
-// leverage artifact, not a real edge). '—' = not analyzed / no data.
+// Collapse the response into ONE traffic-light status + a few terse factors.
+// The integrity gate sets it: RED/STOP (serious flag), YELLOW/BE CAREFUL (soft flag),
+// GREEN/GO (clean). GO means "no traps detected — your own call", never "good bet": the
+// value/mispricing axis did not validate, so we never render a "buy" edge (nor the
+// low-price EV number, a leverage artifact). GRAY/NO DATA = not analyzed yet.
 function gradeMeta(data) {
-  if (data && data._error)
-    return { g: "—", cls: "pt-g-na", headline: "Backend unreachable.", factors: [esc(data._error)] };
+  const NA = (headline, factors) => ({ label: "NO DATA", cls: "pt-s-na", headline, factors });
+  if (data && data._error) return NA("Couldn't reach PolyArc.", [esc(data._error)]);
   if (!data || data.coverage === false)
-    return { g: "—", cls: "pt-g-na", headline: "Not yet analyzed.",
-             factors: [esc((data && data.message) || "No data for this market — we won't guess.")] };
+    return NA("Not analyzed yet.", [esc((data && data.message) || "No data for this market — we won't guess.")]);
   if (!data.market || !data.safebet || !data.polytruth)
-    return { g: "—", cls: "pt-g-na", headline: "Couldn't read the card.",
-             factors: ["The backend may be updating. We won't guess."] };
+    return NA("Couldn't read the card.", ["The backend may be updating. We won't guess."]);
 
   const m = data.market, sb = data.safebet, pt = data.polytruth;
   const flags = sb.flags || [];
   const high = flags.some((f) => f.sev === "high");
-  const g = high ? "F" : (flags.length ? "D" : "C");
-  const cls = { F: "pt-g-F", D: "pt-g-D", C: "pt-g-C" }[g];
+  const level = high ? "stop" : (flags.length ? "care" : "go");
+  const cls = { stop: "pt-s-stop", care: "pt-s-care", go: "pt-s-go" }[level];
+  const label = { stop: "STOP", care: "BE CAREFUL", go: "GO" }[level];
 
   const factors = [];
   if (flags.length)
@@ -150,12 +149,12 @@ function gradeMeta(data) {
   }
 
   let headline;
-  if (g === "F") headline = "Trap risk — the market setup may be unfair. A cheap price here is a red flag, not a deal.";
-  else if (g === "D") headline = "Caution — elevated risk in how this market is set up.";
+  if (level === "stop") headline = "Trap risk — the market setup may be unfair. A cheap price here is a red flag, not a deal.";
+  else if (level === "care") headline = "Be careful — elevated risk in how this market is set up.";
   else headline = pt.base_rate
-    ? `Clean, ${fairTag} — no reliable edge after fees. Bet only your own thesis.`
+    ? `Clean, ${fairTag} — no reliable edge after fees. Your call; bet your own thesis.`
     : "Clean — no traps detected. Not enough history to judge the price.";
-  return { g, cls, headline, factors };
+  return { label, cls, headline, factors };
 }
 
 function render(data) {
@@ -167,7 +166,7 @@ function render(data) {
   const factorsHtml = gm.factors.map((f) => `<div class="pt-factor">${f}</div>`).join("");
   el.innerHTML = `
     <div class="pt-top">
-      <span class="pt-grade ${gm.cls}">${esc(gm.g)}</span>
+      <span class="pt-chip ${gm.cls}">${esc(gm.label)}</span>
       <div class="pt-brandwrap">
         <div class="pt-brand">PolyArc<span class="pt-x" id="pt-x">×</span><span class="pt-min-btn" id="pt-min-btn">–</span></div>
         <div class="pt-headline">${esc(gm.headline)}</div>

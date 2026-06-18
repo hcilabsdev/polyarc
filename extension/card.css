@@ -17,18 +17,19 @@
 #pt-panel.pt-min .pt-learn,
 #pt-panel.pt-min .pt-foot { display: none; }
 #pt-panel.pt-min .pt-top { margin-bottom: 0; align-items: center; }
-#pt-panel.pt-min .pt-grade { width: 30px; height: 30px; font-size: 17px; border-radius: 8px; }
+#pt-panel.pt-min .pt-chip { font-size: 12px; padding: 4px 9px; }
 #pt-panel .pt-min-btn { float: right; cursor: pointer; color: #7e8a99; font-size: 17px;
   line-height: 1; margin-left: 4px; user-select: none; }
 #pt-panel .pt-min-btn:hover { color: #cdd6e0; }
-#pt-panel .pt-top { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 10px; }
-#pt-panel .pt-grade { flex: none; width: 42px; height: 42px; border-radius: 10px;
-  font-size: 25px; font-weight: 800; display: flex; align-items: center; justify-content: center;
-  color: #0c0f14; }
-#pt-panel .pt-g-F { background: #ff6b5a; }
-#pt-panel .pt-g-D { background: #e6b14e; }
-#pt-panel .pt-g-C { background: #5fd39a; }
-#pt-panel .pt-g-na { background: #36414f; color: #aab6c4; }
+#pt-panel .pt-top { display: flex; align-items: center; gap: 11px; margin-bottom: 10px; }
+/* traffic-light status pill */
+#pt-panel .pt-chip { flex: none; display: inline-flex; align-items: center; padding: 6px 13px;
+  border-radius: 999px; font-size: 14px; font-weight: 800; letter-spacing: .3px;
+  color: #0c0f14; white-space: nowrap; }
+#pt-panel .pt-s-stop { background: #ff6b5a; }
+#pt-panel .pt-s-care { background: #e6b14e; }
+#pt-panel .pt-s-go { background: #5fd39a; }
+#pt-panel .pt-s-na { background: #36414f; color: #aab6c4; }
 #pt-panel .pt-brandwrap { flex: 1; min-width: 0; }
 #pt-panel .pt-brand { font-size: 13px; font-weight: 700; color: #fff; }
 #pt-panel .pt-headline { font-size: 12.5px; color: #cdd6e0; margin-top: 3px; }
