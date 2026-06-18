@@ -7,7 +7,7 @@
 // slug. These selectors may need tuning against the live site — the panel will say
 // "not analyzed" rather than guess if it can't resolve or we lack coverage.
 
-const DEFAULT_API = "http://localhost:8088";
+const DEFAULT_API = "https://polyarc.ai";
 let lastKey = null;
 let curSlug = null; // shown on the card so you can see what page it detected
 
@@ -81,10 +81,11 @@ async function fetchCard() {
   lastKey = key;
   const base = await apiBase();
   try {
-    const r = await fetch(`${base}/card?${id.kind}=${encodeURIComponent(id.value)}`);
+    // precomputed static card from the serving plane: /card/<slug>.json
+    const r = await fetch(`${base}/card/${encodeURIComponent(id.value)}.json`);
     return await r.json();
   } catch (e) {
-    return { _error: "Backend unreachable — is the PolyArc API running? (" + base + ")" };
+    return { _error: "Couldn't reach PolyArc (" + base + ")." };
   }
 }
 
