@@ -9,3 +9,9 @@ polyarc_waitlist.db
 .env
 .DS_Store
 node_modules/
+
+# Store submission artifacts (kept local — not part of the public extension)
+extension/*.zip
+extension/store/
+extension/make_store_assets.py
+STORE_LISTING.md
