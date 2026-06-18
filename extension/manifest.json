@@ -5,6 +5,7 @@
   "description": "Honest, free decision-support for prediction markets. Flags traps (SafeBet) and shows fee-adjusted base rates (PolyTruth). Facts, not advice — no tips, no 'safe bet' promises.",
   "permissions": ["storage", "activeTab"],
   "host_permissions": [
+    "https://www.polyarc.ai/*",
     "https://polyarc.ai/*",
     "https://*.workers.dev/*",
     "http://localhost:8088/*",
