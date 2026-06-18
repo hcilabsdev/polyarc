@@ -10,6 +10,7 @@
 const DEFAULT_API = "https://www.polyarc.ai";
 let lastKey = null;
 let curSlug = null; // shown on the card so you can see what page it detected
+let panelMin = false; // collapsed (minimized) state, persists across re-renders
 
 function apiBase() {
   return new Promise((res) =>
@@ -168,7 +169,7 @@ function render(data) {
     <div class="pt-top">
       <span class="pt-grade ${gm.cls}">${esc(gm.g)}</span>
       <div class="pt-brandwrap">
-        <div class="pt-brand">PolyArc<span class="pt-x" id="pt-x">×</span></div>
+        <div class="pt-brand">PolyArc<span class="pt-x" id="pt-x">×</span><span class="pt-min-btn" id="pt-min-btn">–</span></div>
         <div class="pt-headline">${esc(gm.headline)}</div>
       </div>
     </div>
@@ -176,9 +177,21 @@ function render(data) {
     ${factorsHtml}
     <div class="pt-learn">${lnk("How the grade works", "/the-grade")} · ${lnk("CI", "/confidence-interval")} · ${lnk("EV", "/expected-value")}</div>
     <div class="pt-foot">Facts, not advice · not a safety guarantee · Polymarket only</div>`;
+  if (panelMin) el.classList.add("pt-min");   // persist collapsed state across re-renders
   document.body.appendChild(el);
   const x = document.getElementById("pt-x");
   if (x) x.onclick = () => el.remove();
+  const mb = document.getElementById("pt-min-btn");
+  if (mb) {
+    mb.textContent = panelMin ? "+" : "–";
+    mb.title = panelMin ? "expand" : "minimize";
+    mb.onclick = () => {
+      panelMin = !panelMin;
+      el.classList.toggle("pt-min", panelMin);
+      mb.textContent = panelMin ? "+" : "–";
+      mb.title = panelMin ? "expand" : "minimize";
+    };
+  }
 }
 
 async function tick() {
