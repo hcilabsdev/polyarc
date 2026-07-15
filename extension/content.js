@@ -183,16 +183,30 @@ function render(data) {
   const x = document.getElementById("pt-x");
   if (x) x.onclick = () => el.remove();
   const mb = document.getElementById("pt-min-btn");
-  if (mb) {
-    mb.textContent = panelMin ? "+" : "–";
-    mb.title = panelMin ? "expand" : "minimize";
-    mb.onclick = () => {
-      panelMin = !panelMin;
-      el.classList.toggle("pt-min", panelMin);
-      mb.textContent = panelMin ? "+" : "–";
+  const setMin = (v) => {
+    panelMin = v;
+    el.classList.toggle("pt-min", panelMin);
+    if (mb) {
+      mb.textContent = panelMin ? "▴" : "▾";
       mb.title = panelMin ? "expand" : "minimize";
-    };
+    }
+  };
+  if (mb) {
+    setMin(panelMin);
+    mb.onclick = () => setMin(!panelMin);
   }
+  // Touch: swipe down on the panel to minimize, swipe up to expand.
+  let ty = null;
+  el.addEventListener("touchstart", (e) => {
+    ty = e.touches[0].clientY;
+  }, { passive: true });
+  el.addEventListener("touchend", (e) => {
+    if (ty === null) return;
+    const dy = e.changedTouches[0].clientY - ty;
+    ty = null;
+    if (Math.abs(dy) < 32) return;       // taps and wiggles aren't swipes
+    setMin(dy > 0);                       // down = tuck away, up = bring back
+  }, { passive: true });
 }
 
 async function tick() {
