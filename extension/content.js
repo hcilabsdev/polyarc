@@ -172,6 +172,8 @@ function render(data) {
         <div class="pt-headline">${esc(gm.headline)}</div>
       </div>
     </div>
+    ${data && data.market && data.market.question
+      ? `<div class="pt-q">${esc(data.market.question)}</div>` : ""}
     <div class="pt-slug">${esc(curSlug || "(no market on this page)")}</div>
     ${factorsHtml}
     <div class="pt-learn">${lnk("How the grade works", "/the-grade")} · ${lnk("CI", "/confidence-interval")} · ${lnk("EV", "/expected-value")}</div>
